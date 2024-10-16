@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/favorite.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">journal</div>
+            <div class="menu-item">Dashboard</div>
+            <div class="menu-item">Upload Paper</div>
+            <div class="menu-item active">Favorites</div>
+            <div class="menu-item">History</div>
+            <div class="menu-item">Contact</div>
+            <div class="menu-item">Upload Data OJS</div>
+            <div class="menu-item" style="margin-top: auto;">Logout</div>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Favorites</h1>
+                <div class="user-info">
+                    <span>English</span>
+                    <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                    <span>Udin Editor</span>
+                </div>
+            </div>
+            <div class="paper-grid">
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Sains</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                    <span class="favorite-icon">❤️</span>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                    <span class="favorite-icon">♡</span>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Economy</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                    <span class="favorite-icon">♡</span>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                    <span class="favorite-icon">♡</span>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                    <span class="favorite-icon">♡</span>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                    <span class="favorite-icon">♡</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
