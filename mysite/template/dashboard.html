@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">journal</div>
+            <div class="menu-item active">Dashboard</div>
+            <div class="menu-item">Upload Paper</div>
+            <div class="menu-item">Favorites</div>
+            <div class="menu-item">History</div>
+            <div class="menu-item">Contact</div>
+            <div class="menu-item">Upload Data OJS</div>
+            <div class="menu-item" style="margin-top: auto;">Logout</div>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span>English</span>
+                    <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                    <span>Udin Editor</span>
+                </div>
+            </div>
+            <div class="paper-cards">
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                </div>
+                <div class="paper-card">
+                    <div class="paper-icon"></div>
+                    <div class="paper-title">Paper Title</div>
+                    <div class="paper-tag">#Technology</div>
+                    <button class="view-reviewers">View Reviewers</button>
+                </div>
+            </div>
+            <div class="review-table">
+                <h2>Paper Review Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Paper Title</th>
+                            <th>DATE</th>
+                            <th>TYPE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>00001</td>
+                            <td>Optimizing Cloud Computing Performance Using Load Balancing Algorithms</td>
+                            <td>04 Sep 2023</td>
+                            <td>Technology</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>00002</td>
+                            <td>Blockchain Technology for Secure Digital Identity Management</td>
+                            <td>28 May 2024</td>
+                            <td>Technology</td>
+                            <td><span class="status processing">Processing</span></td>
+                        </tr>
+                        <tr>
+                            <td>00003</td>
+                            <td>Machine Learning Applications in Predicting Student Performance in E-Learning Platforms</td>
+                            <td>23 Nov 2023</td>
+                            <td>Technology</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>00004</td>
+                            <td>The Role of Gamification in Enhancing Student Engagement in Higher Education</td>
+                            <td>05 Feb 2022</td>
+                            <td>Education</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
