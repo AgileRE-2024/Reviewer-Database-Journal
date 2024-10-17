@@ -48,7 +48,7 @@ nav ul li a {
     align-items: center;
 }
 nav ul li a i {
-    margin-right: 10px; /* Menambahkan jarak antara ikon dan teks */
+    margin-right: 10px; 
 }
 
 nav ul li a.active {
