@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}" ><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'upload' %}"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="{% url 'contact' %}"><class="active upload-btn"><i class="fas fa-tachometer-alt"></i> Contact</a></li>
+                    <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>Udin</span>
+                </div>
+            </header>
+            <section class="content">
+                <h1>Contact</h1>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <img src="contact1.jpg" alt="Kevin Nathaneal">
+                        <h3>Kevin Nathaneal</h3>
+                        <p>customerservice1@gmail.com</p>
+                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                    </div>
+                    <div class="contact-card">
+                        <img src="contact2.jpg" alt="Dimas Respati">
+                        <h3>Dimas Respati</h3>
+                        <p>customerservice2@gmail.com</p>
+                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                    </div>
+                    <div class="contact-card">
+                        <img src="contact3.jpg" alt="Nadia Risky">
+                        <h3>Nadia Risky</h3>
+                        <p>customerservice3@gmail.com</p>
+                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                    </div>
+                    <div class="contact-card">
+                        <img src="contact4.jpg" alt="Rosie Glover">
+                        <h3>Bingar Kenaya Puri</h3>
+                        <p>customerservice4@gmail.com</p>
+                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                    </div>
+                    <div class="contact-card">
+                        <img src="contact5.jpg" alt="Patrick Greer">
+                        <h3>Aldyto</h3>
+                        <p>customerservice5@gmail.com</p>
+                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                    </div>
+                    <div class="contact-card">
+                        <img src="contact6.jpg" alt="Darrell Ortega">
+                        <h3>Afrijal Haykal</h3>
+                        <p>customerservice6@gmail.com</p>
+                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{% static 'js/contact.js' %}"></script>
+</body>
+</html>

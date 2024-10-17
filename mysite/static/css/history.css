@@ -23,7 +23,7 @@ body, html {
     background-color: white;
     height: 100vh;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -47,8 +47,9 @@ nav ul li a {
     display: flex;
     align-items: center;
 }
+
 nav ul li a i {
-    margin-right: 10px; /* Menambahkan jarak antara ikon dan teks */
+    margin-right: 10px;
 }
 
 nav ul li a.active {
@@ -78,7 +79,7 @@ header {
     align-items: center;
     padding: 10px 20px;
     background-color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header .notifications {
@@ -111,46 +112,82 @@ header .user-profile {
 }
 
 .notifications img, .language-selector img, .user-profile img {
-    margin-right: 10px; /* Jarak antara avatar dan teks */
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
-.filter-container, .pagination-container {
-    margin-bottom: 20px;
-}
-.filter-container > *, .pagination-container > * {
     margin-right: 10px;
 }
+
+.filter-container, .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-container {
+    justify-content: flex-end;
+    gap: 10px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
 }
+
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
+
 th {
     background-color: #f2f2f2;
 }
+
 .completed {
     background-color: #90EE90;
 }
+
 .processing {
     background-color: #FFA500;
 }
+
 .pagination-button {
     padding: 5px 10px;
     background-color: #f2f2f2;
     border: 1px solid #ddd;
     cursor: pointer;
 }
+
 .pagination-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
+select, input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.filter-container select {
+    margin-right: 10px;
+}
+
+.show-entries {
+    margin-right: 10px;
+}
+
+.reset-filters {
+    margin-left: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}

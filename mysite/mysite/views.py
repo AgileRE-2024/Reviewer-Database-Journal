@@ -30,3 +30,6 @@ def ReviewerPage(request):
 
 def UploadOJSPage(request):
     return render(request, 'upload-ojs.html')
+
+def ContactPage(request):
+    return render(request, 'contact.html')
