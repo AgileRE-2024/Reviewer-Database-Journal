@@ -1,0 +1,73 @@
+<!-- templates/upload_ojs.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Journal - Recommended Reviewers{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/upload-ojs.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'upload' %}"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="{% url 'upload_ojs' %}" class="active upload-btn"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>Udin</span>
+                </div>
+            </header>
+            <div id="upload-page" class="page">
+                <div class="upload-area">
+                    <div class="upload-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 12V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p>Drag & drop files or <a href="#" class="browse-link">Browse</a></p>
+                    <input type="file" id="fileInput" style="display: none;" />
+                    <p class="file-name"></p>
+                    <p class="supported-formats">Supported formats: Excel</p>
+                    <button class="upload-button">UPLOAD FILES</button>
+                </div>
+            </div>
+            <div id="reviewer-scraping-page" class="page hidden">
+                <div class="reviewer-scraping">
+                    <h2>Reviewer Scraping</h2>
+                    <p>Last Scraped: <span id="last-scraped-date">07/10/23</span></p>
+                    <button id="go-btn" class="go-btn">Go</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/upload-ojs.js' %}"></script>
+</body>
+</html>

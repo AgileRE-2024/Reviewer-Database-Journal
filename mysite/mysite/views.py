@@ -27,3 +27,6 @@ def ConfirmationPage(request):
 
 def ReviewerPage(request):
     return render(request, 'reviewer.html')
+
+def UploadOJSPage(request):
+    return render(request, 'upload-ojs.html')

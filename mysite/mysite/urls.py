@@ -25,6 +25,7 @@ from .views import UploadPaperPage
 from .views import UploadDetailPage
 from .views import ConfirmationPage
 from .views import ReviewerPage
+from .views import UploadOJSPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,5 +38,6 @@ urlpatterns = [
     path('upload/detail/', UploadDetailPage, name='upload_detail'),
     path('confirmation/', ConfirmationPage, name='confirmation'),
     path('reviewer/', ReviewerPage, name='reviewer'),
+    path('upload/ojs/', UploadOJSPage, name='upload_ojs'),
 ]
 
