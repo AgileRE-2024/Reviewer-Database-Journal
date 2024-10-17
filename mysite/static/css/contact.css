@@ -1,0 +1,126 @@
+:root {
+    --primary-color: #4c6fff;
+    --secondary-color: #f8f9fd;
+    --text-color: #333;
+    --sidebar-width: 250px;
+}
+
+.body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--secondary-color);
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: white;
+    height: 100vh;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin-bottom: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+nav ul li a i {
+    margin-right: 10px; 
+}
+
+nav ul li a.active {
+    color: black;
+    font-weight: bold;
+}
+.logout {
+    margin-top: auto;
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.notifications, .language-selector, .user-profile {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: -10px;
+}
+
+.content h1 {
+    margin-bottom: 20px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.contact-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contact-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.message-btn {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.message-btn:hover {
+    background-color: darkblue;
+}
