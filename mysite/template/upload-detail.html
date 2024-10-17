@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal - Paper Manuscript Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/upload-detail.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <script src="{% static 'js/upload-detail.js' %}" defer></script>  <!-- Menyertakan file JavaScript -->
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>Udin</span>
+                    <span>Editor</span>
+                </div>
+            </header>
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="step">Start</div>
+                    <div class="step active">Upload Manuscript</div>
+                    <div class="step">Confirmation</div>
+                    <div class="step">Recommended Reviewers</div>
+                </div>
+                <h1>Paper Manuscript Form</h1>
+                <form class="manuscript-form" id="manuscriptForm"> <!-- Menambahkan ID -->
+                    <div class="form-group">
+                        <label for="journal-title">Paper Title</label>
+                        <input type="text" id="journal-title" name="journal-title" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="journal-category">Paper Category</label>
+                            <select id="journal-category" name="journal-category" required>
+                                <option value="" disabled selected>Select category</option>
+                                <option value="health">Health</option>
+                                <option value="machine-learning">Machine Learning</option>
+                                <option value="technology">Technology</option>
+                                <option value="education">Education</option>
+                                <option value="economy">Economy</option>
+                            </select>
+                        </div>                        
+                        <div class="form-group">
+                            <label for="publish-date">Publish date</label>
+                            <input type="date" id="publish-date" name="publish-date" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="abstract">Abstract</label>
+                        <textarea id="abstract" name="abstract" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
+                    </div>
+                    <button type="submit" class="submit-btn">Save & Continue</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

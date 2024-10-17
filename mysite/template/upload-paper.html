@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal - Reviewer Recommender</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/upload-paper.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
+            </div>            
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'upload' %}" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>Udin</span>
+                </div>
+            </header>
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="step active">Start</div>
+                    <div class="step">Upload Manuscript</div>
+                    <div class="step">Confirmation</div>
+                    <div class="step">Recommended Reviewers</div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h2>Elevate Your Research</h2>
+                        <p style="color: red;">Notes: Make Sure That You Already Upload Your Journal OJS Data</p>
+                        <a href="{% url 'upload_detail' %}" class="btn">Find Your Recommended Reviewers →</a>
+                    </div>
+                    <div class="card-image">
+                        <img src="{% static 'img/image 1.png' %}" alt="Researcher working">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

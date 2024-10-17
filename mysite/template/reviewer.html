@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal - Recommended Reviewers</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/reviewer.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>Udin</span>
+                </div>
+            </header>
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="step">Start</div>
+                    <div class="step">Upload Manuscript</div>
+                    <div class="step">Confirmation</div>
+                    <div class="step active">Recommended Reviewers</div>
+                </div>
+                <table class="reviewers-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Total Paper Submitted</th>
+                            <th>Skill</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviewersTableBody">
+                        <!-- Reviewers will be dynamically added here -->
+                    </tbody>
+                </table>
+                
+                <!-- Button Container -->
+                <div class="buttons-container">
+                    <button class="btn btn-primary" id="goBackBtn" data-url="{% url 'history' %}">Ya, Saya Sudah Memilih Reviewers</button>
+                    <button class="btn btn-secondary" id="OkeBtn" data-url="{% url 'history' %}">Belum, Saya akan melanjutkan memilih nanti</button>
+                </div>
+            </div>
+        </main>        
+        <div id="confirmPopup" class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+                <button class="close-btn" onclick="closeConfirmPopup()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Konfirmasi Pilihan</h3>
+                <p>Apakah Anda yakin ingin memilih reviewer ini?</p>
+                <button id="confirmChooseBtn" class="btn btn-primary">Ya</button>
+                <button class="btn btn-secondary" onclick="closeConfirmPopup()">Tidak</button>
+            </div>
+        </div>        
+    </div>
+    <div id="popupOverlay" class="popup-overlay" style="display: none;">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="reviewerCard" class="reviewer-card">
+                <!-- Reviewer details will be dynamically added here -->
+            </div>
+        </div>
+    </div> 
+    <script src="{% static 'js/reviewer.js' %}"></script>
+</body>
+</html>

@@ -19,11 +19,23 @@ from django.urls import path
 from .views import DashboardPage
 from .views import FavoritePage  
 from .views import HistoryPage
+from .views import LoginPage
+from .views import SignupPage
+from .views import UploadPaperPage
+from .views import UploadDetailPage
+from .views import ConfirmationPage
+from .views import ReviewerPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', DashboardPage, name='dashboard'),
+    path('dashboard/', DashboardPage, name='dashboard'),
     path('favorites/', FavoritePage, name='favorites'),
     path('history/', HistoryPage, name='history'),
+    path('', LoginPage, name='login'),
+    path('signup/', SignupPage, name='signup'),
+    path('upload/', UploadPaperPage, name='upload'),
+    path('upload/detail/', UploadDetailPage, name='upload_detail'),
+    path('confirmation/', ConfirmationPage, name='confirmation'),
+    path('reviewer/', ReviewerPage, name='reviewer'),
 ]
 

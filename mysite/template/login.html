@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script src="{% static 'js/login.js' %}" defer></script>  <!-- Menyertakan file JavaScript -->
+</head>
+<body>
+    <div class="form-container">
+        <h1>Login to Account</h1>
+        <p>Please enter your email and password to continue</p>
+        <form id="loginForm">
+            <label for="email">Email address:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <div class="password-container">
+                <label for="password">Password</label>
+                <a href="#" class="forget-password">Forget Password?</a>
+            </div>
+            <input type="password" id="password" name="password" required>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember Password</label>
+            </div>
+            
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="create-account">
+            Don't have an account? <a href="{% url 'signup' %}">Create Account</a>
+        </div>
+    </div>
+</body>
+</html>
