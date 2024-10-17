@@ -44,46 +44,35 @@
                     <span>Udin</span>
                 </div>
             </header>
-            <div class="filter-bar">
-                <div class="filter-item">
-                    <span>Filter By</span>
-                </div>
-                <div class="filter-item">
-                    <span>Date</span>
-                    <div class="date-picker">
-                        <input type="text" class="date-input" placeholder="Select date" readonly>
-                        <div class="calendar">
-                            <div class="calendar-header">
-                                <button id="prevMonth">&lt;</button>
-                                <span id="currentMonth"></span>
-                                <button id="nextMonth">&gt;</button>
-                            </div>
-                            <div class="calendar-body" id="calendarDays"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="filter-item">
-                    <span>Type</span>
-                    <select>
-                        <option>Select</option>
-                        <option>Technology</option>
-                        <option>Education</option>
-                        <option>Economy</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <span>Status</span>
-                    <select id="statusFilter" onchange="filterByStatus()">
-                        <option value="">Select</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Processing">Processing</option>
-                    </select>
-                </div>                              
-                <div class="filter-item reset-filter">
-                    <span>Reset Filter</span>
-                </div>
+        </head>
+        <body>
+            <div class="filter-container">
+                <input type="date" id="dateFilter">
+                <select id="typeFilter">
+                    <option value="">Select Type</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Education">Education</option>
+                    <option value="Economy">Economy</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="">Select Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Processing">Processing</option>
+                </select>
+                <button onclick="resetFilters()">Reset Filters</button>
             </div>
-            <table>
+            <div class="pagination-container">
+                <select id="entriesPerPage">
+                    <option value="5">Show 5</option>
+                    <option value="10" selected>Show 10</option>
+                    <option value="25">Show 25</option>
+                    <option value="50">Show 50</option>
+                </select>
+                <button id="prevPage" class="pagination-button" onclick="changePage(-1)">Previous</button>
+                <span id="pageInfo"></span>
+                <button id="nextPage" class="pagination-button" onclick="changePage(1)">Next</button>
+            </div>
+            <table id="paperTable">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -93,79 +82,11 @@
                         <th>STATUS</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>00001</td>
-                        <td>Optimizing Cloud Computing Performance Using Load Balancing Algorithms</td>
-                        <td>04 Sep 2023</td>
-                        <td>Technology</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>00002</td>
-                        <td>Blockchain Technology for Secure Digital Identity Management</td>
-                        <td>28 May 2024</td>
-                        <td>Technology</td>
-                        <td><span class="status processing">Processing</span></td>
-                    </tr>
-                    <tr>
-                        <td>00003</td>
-                        <td>Machine Learning Applications in Predicting Student Performance in E-Learning Platforms</td>
-                        <td>23 Nov 2023</td>
-                        <td>Technology</td>
-                        <td><span class="status processing">Processing</span></td>
-                    </tr>
-                    <tr>
-                        <td>00004</td>
-                        <td>The Role of Gamification in Enhancing Student Engagement in Higher Education</td>
-                        <td>05 Feb 2022</td>
-                        <td>Education</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>00005</td>
-                        <td>Impact of Blended Learning on Academic Achievement in University Settings</td>
-                        <td>29 Juli 2024</td>
-                        <td>Education</td>
-                        <td><span class="status processing">Processing</span></td>
-                    </tr>
-                    <tr>
-                        <td>00006</td>
-                        <td>Integrating Critical Thinking Skills in Language Learning Curricula</td>
-                        <td>15 Aug 2024</td>
-                        <td>Education</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>00007</td>
-                        <td>The Influence of Corporate Social Responsibility on Brand Loyalty: A Case Study in the Food Industry</td>
-                        <td>21 Dec 2023</td>
-                        <td>Economy</td>
-                        <td><span class="status processing">Processing</span></td>
-                    </tr>
-                    <tr>
-                        <td>00008</td>
-                        <td>Financial Technology (FinTech) Adoption among SMEs: Opportunities and Challenges</td>
-                        <td>30 Apr 2024</td>
-                        <td>Economy</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>00009</td>
-                        <td>Analyzing the Impact of Leadership Styles on Employee Motivation and Productivity</td>
-                        <td>09 Jan 2024</td>
-                        <td>Economy</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
-            <div class="pagination">
-                <span>Showing 1-09 of 78</span>
-                <div class="pagination-buttons">
-                    <span class="pagination-button">&#8592;</span>
-                    <span class="pagination-button">&#8594;</span>
-                </div>
-            </div>
+            <div id="tableInfo"></div>
+        
+        </div>
         </main>
     </div>
 </body>

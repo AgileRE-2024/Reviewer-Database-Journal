@@ -1,92 +1,86 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Fungsionalitas kalender
-    let currentDate = new Date();
-    let currentMonth = currentDate.getMonth();
-    let currentYear = currentDate.getFullYear();
+const data = [
+    { id: '00001', paperTitle: 'Optimizing Cloud Computing Performance Using Load Balancing Algorithms', date: '2023-09-04', type: 'Technology', status: 'Completed' },
+    { id: '00002', paperTitle: 'Blockchain Technology for Secure Digital Identity Management', date: '2024-05-28', type: 'Technology', status: 'Processing' },
+    { id: '00003', paperTitle: 'Machine Learning Applications in Predicting Student Performance in E-Learning Platforms', date: '2023-11-23', type: 'Technology', status: 'Processing' },
+    { id: '00004', paperTitle: 'The Role of Gamification in Enhancing Student Engagement in Higher Education', date: '2022-02-05', type: 'Education', status: 'Completed' },
+    { id: '00005', paperTitle: 'Impact of Blended Learning on Academic Achievement in University Settings', date: '2024-07-29', type: 'Education', status: 'Processing' },
+    { id: '00006', paperTitle: 'Integrating Critical Thinking Skills in Language Learning Curricula', date: '2024-08-15', type: 'Education', status: 'Completed' },
+    { id: '00007', paperTitle: 'The Influence of Corporate Social Responsibility on Brand Loyalty: A Case Study in the Food Industry', date: '2023-12-21', type: 'Economy', status: 'Processing' },
+    { id: '00008', paperTitle: 'Financial Technology (FinTech) Adoption among SMEs: Opportunities and Challenges', date: '2024-04-30', type: 'Economy', status: 'Completed' },
+    { id: '00009', paperTitle: 'Analyzing the Impact of Leadership Styles on Employee Motivation and Productivity', date: '2024-01-09', type: 'Economy', status: 'Completed' },
+    // Add more entries to test pagination...
+];
 
-    function populateCalendar(month, year) {
-        const calendarDays = document.getElementById('calendarDays');
-        const currentMonthElement = document.getElementById('currentMonth');
+const dateFilter = document.getElementById('dateFilter');
+const typeFilter = document.getElementById('typeFilter');
+const statusFilter = document.getElementById('statusFilter');
+const entriesPerPage = document.getElementById('entriesPerPage');
+const tableBody = document.querySelector('#paperTable tbody');
+const tableInfo = document.getElementById('tableInfo');
+const pageInfo = document.getElementById('pageInfo');
+const prevPageBtn = document.getElementById('prevPage');
+const nextPageBtn = document.getElementById('nextPage');
 
-        currentMonthElement.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
-        calendarDays.innerHTML = ''; // Kosongkan isi sebelumnya
+let currentPage = 1;
+let filteredData = [];
 
-        const firstDay = new Date(year, month, 1).getDay();
-        const lastDate = new Date(year, month + 1, 0).getDate();
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+}
 
-        // Tambahkan hari kosong untuk menggeser tanggal ke kanan
-        for (let i = 0; i < firstDay; i++) {
-            const emptyCell = document.createElement('div');
-            calendarDays.appendChild(emptyCell);
-        }
+function updateTable() {
+    filteredData = data.filter(item => {
+        return (!dateFilter.value || item.date === dateFilter.value) &&
+               (!typeFilter.value || item.type === typeFilter.value) &&
+               (!statusFilter.value || item.status === statusFilter.value);
+    });
 
-        // Tambahkan tanggal
-        for (let date = 1; date <= lastDate; date++) {
-            const dayCell = document.createElement('div');
-            dayCell.textContent = date;
-            dayCell.addEventListener('click', function() {
-                document.querySelector('.date-input').value = `${date} ${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
-                document.querySelector('.calendar').style.display = 'none'; // Menyembunyikan kalender setelah memilih tanggal
-            });
-            calendarDays.appendChild(dayCell);
-        }
+    const pageSize = parseInt(entriesPerPage.value);
+    const totalPages = Math.ceil(filteredData.length / pageSize);
+
+    if (currentPage > totalPages) {
+        currentPage = totalPages || 1;
     }
 
-    populateCalendar(currentMonth, currentYear);
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    const paginatedData = filteredData.slice(start, end);
 
-    document.getElementById('prevMonth').addEventListener('click', function() {
-        currentMonth--;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        }
-        populateCalendar(currentMonth, currentYear);
-    });
+    tableBody.innerHTML = paginatedData.map(item => `
+        <tr class="${item.status.toLowerCase()}">
+            <td>${item.id}</td>
+            <td>${item.paperTitle}</td>
+            <td>${formatDate(item.date)}</td>
+            <td>${item.type}</td>
+            <td>${item.status}</td>
+        </tr>
+    `).join('');
 
-    document.getElementById('nextMonth').addEventListener('click', function() {
-        currentMonth++;
-        if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
-        }
-        populateCalendar(currentMonth, currentYear);
-    });
+    tableInfo.textContent = `Showing ${start + 1} to ${Math.min(end, filteredData.length)} of ${filteredData.length} entries (filtered from ${data.length} total entries)`;
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
 
-    document.querySelector('.date-input').addEventListener('click', function() {
-        const calendar = document.querySelector('.calendar');
-        calendar.style.display = calendar.style.display === 'none' ? 'block' : 'none';
-    });
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages;
+}
 
-    // Fungsionalitas status
-    const statusElements = document.querySelectorAll(".status");
+function resetFilters() {
+    dateFilter.value = '';
+    typeFilter.value = '';
+    statusFilter.value = '';
+    currentPage = 1;
+    updateTable();
+}
 
-    statusElements.forEach(status => {
-        status.addEventListener("click", function () {
-            const currentStatus = this.textContent.trim();
-            // Hanya mengizinkan dua pilihan: "Completed" atau "Processing"
-            const newStatus = currentStatus === "Completed" ? "Processing" : "Completed";
+function changePage(direction) {
+    currentPage += direction;
+    updateTable();
+}
 
-            this.textContent = newStatus;
-            // Update class berdasarkan status baru
-            this.className = "status " + (newStatus.toLowerCase() === "completed" ? "completed" : "processing");
-        });
-    });
+dateFilter.addEventListener('change', () => { currentPage = 1; updateTable(); });
+typeFilter.addEventListener('change', () => { currentPage = 1; updateTable(); });
+statusFilter.addEventListener('change', () => { currentPage = 1; updateTable(); });
+entriesPerPage.addEventListener('change', () => { currentPage = 1; updateTable(); });
 
-    // Fungsionalitas filter status
-    document.getElementById("statusFilter").addEventListener("change", function() {
-        const selectedStatus = this.value;
-        const rows = document.querySelectorAll("tbody tr"); // Ganti dengan selector yang sesuai untuk tabel Anda
-
-        rows.forEach(row => {
-            const statusCell = row.querySelector(".status");
-            const statusText = statusCell.textContent.trim();
-
-            // Tampilkan atau sembunyikan baris berdasarkan status yang dipilih
-            if (selectedStatus === "" || statusText === selectedStatus) {
-                row.style.display = ""; // Tampilkan baris
-            } else {
-                row.style.display = "none"; // Sembunyikan baris
-            }
-        });
-    });
-});
+updateTable();

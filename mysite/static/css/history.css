@@ -114,109 +114,43 @@ header .user-profile {
     margin-right: 10px; /* Jarak antara avatar dan teks */
 }
 
-.filter-bar {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
 }
-
-.filter-item {
-    margin-right: 20px;
+.filter-container, .pagination-container {
+    margin-bottom: 20px;
 }
-
-.date-picker {
-    display: inline-block;
-    position: relative;
+.filter-container > *, .pagination-container > * {
+    margin-right: 10px;
 }
-
-.calendar {
-    display: none; /* Tersembunyi secara default */
-    position: absolute;
-    top: 100%; /* Sesuaikan posisinya */
-    left: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.calendar-body {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.calendar-body div {
-    text-align: center;
-    padding: 8px;
-    cursor: pointer;
-}
-
-.calendar-body div:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
-
 th, td {
-    padding: 10px;
     border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
 }
-
 th {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: #f2f2f2;
 }
-
-.status {
-    padding: 5px 10px;
-    border-radius: 5px;
+.completed {
+    background-color: #90EE90;
 }
-
-.status.completed {
-    background-color: green;
-    color: white;
+.processing {
+    background-color: #FFA500;
 }
-
-.status.processing {
-    background-color: orange;
-    color: white;
-}
-
-.pagination {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.pagination-buttons {
-    display: flex;
-}
-
 .pagination-button {
-    cursor: pointer;
     padding: 5px 10px;
+    background-color: #f2f2f2;
     border: 1px solid #ddd;
-    margin: 0 5px;
-    border-radius: 3px;
+    cursor: pointer;
+}
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.pagination-button:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
