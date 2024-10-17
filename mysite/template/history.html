@@ -3,30 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journal History</title>
+    <title>Journal Dashboard</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/' %}"></head>
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <script src="{% static 'js/history.js' %}" defer></script> <!-- Menggunakan defer agar JS dimuat setelah HTML -->
+</head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            <div class="logo">journal</div>
-            <div class="menu-item">Dashboard</div>
-            <div class="menu-item">Upload Paper</div>
-            <div class="menu-item">Favorites</div>
-            <div class="menu-item active">History</div>
-            <div class="menu-item">Contact</div>
-            <div class="menu-item">Upload Data OJS</div>
-            <div class="menu-item" style="margin-top: auto;">Logout</div>
-        </div>
-        <div class="main-content">
-            <div class="header">
-                <h1>History</h1>
-                <div class="user-info">
-                    <span>English</span>
-                    <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
-                    <span>Udin Editor</span>
-                </div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
             </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="{% url 'history' %}" class="active upload-btn"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>Udin</span>
+                </div>
+            </header>
             <div class="filter-bar">
                 <div class="filter-item">
                     <span>Filter By</span>
@@ -56,17 +73,16 @@
                 </div>
                 <div class="filter-item">
                     <span>Status</span>
-                    <select>
-                        <option>Select</option>
-                        <option>Completed</option>
-                        <option>Processing</option>
+                    <select id="statusFilter" onchange="filterByStatus()">
+                        <option value="">Select</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Processing">Processing</option>
                     </select>
-                </div>
+                </div>                              
                 <div class="filter-item reset-filter">
                     <span>Reset Filter</span>
                 </div>
             </div>
-
             <table>
                 <thead>
                     <tr>
@@ -143,7 +159,6 @@
                     </tr>
                 </tbody>
             </table>
-
             <div class="pagination">
                 <span>Showing 1-09 of 78</span>
                 <div class="pagination-buttons">
@@ -151,8 +166,7 @@
                     <span class="pagination-button">&#8594;</span>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
-    <script src="history.js"></script>
 </body>
 </html>

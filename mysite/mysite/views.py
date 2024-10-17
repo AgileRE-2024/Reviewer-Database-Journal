@@ -6,3 +6,6 @@ def DashboardPage(request):
 
 def FavoritePage(request):
     return render(request, 'favorite.html')  
+
+def HistoryPage(request):
+    return render(request, 'history.html')

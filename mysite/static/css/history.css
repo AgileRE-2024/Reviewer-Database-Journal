@@ -1,8 +1,17 @@
-.body, html {
+:root {
+    --primary-color: #4c6fff;
+    --secondary-color: #f8f9fd;
+    --accent-color: #6359e9;
+    --text-color: #333;
+    --sidebar-width: 250px;
+}
+
+body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
 }
 
 .container {
@@ -10,150 +19,120 @@
 }
 
 .sidebar {
-    width: 200px;
+    width: var(--sidebar-width);
     background-color: white;
     height: 100vh;
     padding: 20px;
-}
-
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #4285f4;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.menu-item {
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin-bottom: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+nav ul li a i {
+    margin-right: 10px; /* Menambahkan jarak antara ikon dan teks */
+}
+
+nav ul li a.active {
+    color: black;
+    font-weight: bold;
+}
+
+.upload-btn {
+    background-color: var(--primary-color);
+    color: white !important;
     padding: 10px;
-    margin-bottom: 10px;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-.menu-item.active {
-    background-color: #4285f4;
-    color: white;
+.logout {
+    margin-top: auto;
 }
 
-.header {
+main {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-left: 10px;
-}
-
-.filter-bar {
-    display: flex;
+    padding: 10px 20px;
     background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.filter-item {
+header .notifications {
+    margin-right: 20px;
+    position: relative;
+}
+
+header .notifications .badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 6px;
+    font-size: 12px;
+}
+
+header .language-selector,
+header .user-profile {
     display: flex;
     align-items: center;
     margin-right: 20px;
 }
 
-.filter-item select {
-    margin-left: 10px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+.header img {
+    width: 30px;
+    height: auto;
+    margin-right: 5px;
 }
 
-.reset-filter {
-    color: #ff4081;
-    cursor: pointer;
+.notifications img, .language-selector img, .user-profile img {
+    margin-right: 10px; /* Jarak antara avatar dan teks */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-th, td {
-    text-align: left;
-    padding: 15px;
-    border-bottom: 1px solid #f0f2f5;
-}
-
-th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-.status {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-}
-
-.completed {
-    background-color: #e8f5e9;
-    color: #4caf50;
-}
-
-.processing {
-    background-color: #e3f2fd;
-    color: #2196f3;
-}
-
-.pagination {
+.filter-bar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
-.pagination-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.pagination-button {
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    cursor: pointer;
+.filter-item {
+    margin-right: 20px;
 }
 
 .date-picker {
+    display: inline-block;
     position: relative;
 }
 
-.date-input {
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
 .calendar {
-    display: none;
+    display: none; /* Tersembunyi secara default */
     position: absolute;
-    top: 100%;
+    top: 100%; /* Sesuaikan posisinya */
     left: 0;
     background-color: white;
     border: 1px solid #ddd;
@@ -166,26 +145,78 @@ th {
 .calendar-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: center;
 }
 
 .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
+    margin-top: 10px;
 }
 
-.calendar-day {
+.calendar-body div {
     text-align: center;
-    padding: 5px;
+    padding: 8px;
     cursor: pointer;
 }
 
-.calendar-day:hover {
-    background-color: #f0f2f5;
+.calendar-body div:hover {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-.calendar-day.selected {
-    background-color: #4285f4;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.completed {
+    background-color: green;
+    color: white;
+}
+
+.status.processing {
+    background-color: orange;
+    color: white;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.pagination-buttons {
+    display: flex;
+}
+
+.pagination-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+    border-radius: 3px;
+}
+
+.pagination-button:hover {
+    background-color: var(--primary-color);
     color: white;
 }
