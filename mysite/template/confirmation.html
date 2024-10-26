@@ -54,11 +54,21 @@
                 <div class="confirmation-card">
                     <img src="{% static 'img/image 4.png' %}" alt="Paper manuscript" class="paper-image">
                     <h2>All Detail Of Your Paper Correct?</h2>
+                
+                    <!-- Pratinjau Detail Paper tanpa kategori -->
+                    <div class="paper-preview">
+                        <h3>Preview of Paper Details</h3>
+                        <p><strong>Title:</strong> <span id="preview-title"></span></p>
+                        <p><strong>Publish Date:</strong> <span id="preview-publish-date"></span></p>
+                        <p><strong>Abstract:</strong> <span id="preview-abstract"></span></p>
+                    </div>
+                
                     <div class="button-group">
                         <button class="btn btn-secondary" id="goBackBtn" data-url="{% url 'upload_detail' %}">No, Go Back</button>
                         <button class="btn btn-primary" id="OkeBtn" data-url="{% url 'reviewer' %}">Yes, Find My Reviewer</button>
                     </div>
                 </div>
+                
             </div>
         </main>
     </div>

@@ -1,8 +1,8 @@
 from django.shortcuts import render 
-import requests
-import pandas as pd
 from django.http import JsonResponse
-from myapp.models import ScrapedPaper  # Import the updated ScrapedPaper model
+import pandas as pd
+import requests
+from myapp.models import ScrapedPaper  # Pastikan ScrapedPaper adalah model yang sudah didefinisikan
 
 def scrape_reviewers(request):
     # Load the Excel file
@@ -41,18 +41,20 @@ def scrape_reviewers(request):
                         first_author_data = authors[0]
                         first_author = f"{first_author_data.get('given', '')} {first_author_data.get('family', '')}".strip()
                     
-                    # Save the data to the database
-                    ScrapedPaper.objects.create(
-                        title=title,
-                        url=url,
-                        first_author=first_author,
-                        abstract=abstract  # Save the abstract
-                    )
+                    # Check if entry already exists based on title or URL
+                    if not ScrapedPaper.objects.filter(title=title, url=url).exists():
+                        # Save the data to the database only if it does not already exist
+                        ScrapedPaper.objects.create(
+                            title=title,
+                            url=url,
+                            first_author=first_author,
+                            abstract=abstract  # Save the abstract
+                        )
 
-                    # Print the filtered data to the terminal
-                    print(f"Title: {title}")
-                    print(f"URL: {url}")
-                    print(f"First Author: {first_author}")
+                        # Print the filtered data to the terminal
+                        print(f"Title: {title}")
+                        print(f"URL: {url}")
+                        print(f"First Author: {first_author}")
 
             else:
                 # Print the error to the terminal
