@@ -16,51 +16,62 @@ def scrape_reviewers(request):
         for _, row in reviewer_data.iterrows():
             name = row['givenname.Element:Text']
             affiliation = row['affiliation.Element:Text']
-            
-            response = requests.get(
-                f"https://api.crossref.org/works?query.author={name}&query.affiliation={affiliation}",
-                headers=headers
-            )
-            
-            if response.status_code == 200:
-                data = response.json()
-                items = data.get('message', {}).get('items', [])
-                
-                reviewer, _ = Reviewer.objects.get_or_create(name=name)  # Buat atau ambil reviewer
 
-                for item in items:
-                    title = item.get('title', ['No Title'])[0]
-                    url = item.get('URL', 'No URL')
-                    authors = item.get('author', [])
-                    abstract = item.get('abstract', 'No Abstract')
+            try:
+                # Mengirim request ke CrossRef API dengan timeout 10 detik
+                response = requests.get(
+                    f"https://api.crossref.org/works?query.author={name}&query.affiliation={affiliation}",
+                    headers=headers,
+                    timeout=10
+                )
 
-                    first_author = ""
-                    if authors:
-                        first_author_data = authors[0]
-                        first_author = f"{first_author_data.get('given', '')} {first_author_data.get('family', '')}".strip()
-                    
-                    # Cek apakah entri sudah ada berdasarkan judul atau URL
-                    paper, created = ScrapedPaper.objects.get_or_create(
-                        title=title,
-                        url=url,
-                        first_author=first_author,
-                        abstract=abstract,
-                        reviewer=reviewer  # Hubungkan paper ke reviewer
-                    )
+                if response.status_code == 200:
+                    data = response.json()
+                    items = data.get('message', {}).get('items', [])
 
-                    if created:
-                        print(f"Title: {title}")
-                        print(f"URL: {url}")
-                        print(f"First Author: {first_author}")
+                    # Membuat atau mengambil reviewer
+                    reviewer, _ = Reviewer.objects.get_or_create(name=name)
 
-            else:
-                print(f"Failed to fetch data for {name} (status code: {response.status_code})")
+                    for item in items:
+                        title = item.get('title', ['No Title'])[0]
+                        url = item.get('URL', 'No URL')
+                        authors = item.get('author', [])
+                        abstract = item.get('abstract', 'No Abstract')
+
+                        # Mengambil nama penulis pertama jika ada
+                        first_author = ""
+                        if authors:
+                            first_author_data = authors[0]
+                            first_author = f"{first_author_data.get('given', '')} {first_author_data.get('family', '')}".strip()
+
+                        # Cek apakah entri sudah ada berdasarkan judul atau URL
+                        paper, created = ScrapedPaper.objects.get_or_create(
+                            title=title,
+                            url=url,
+                            first_author=first_author,
+                            abstract=abstract,
+                            reviewer=reviewer
+                        )
+
+                        if created:
+                            print(f"Title: {title}")
+                            print(f"URL: {url}")
+                            print(f"First Author: {first_author}")
+
+                else:
+                    print(f"Failed to fetch data for {name} (status code: {response.status_code})")
+
+            except requests.exceptions.RequestException as req_err:
+                print(f"Request error for {name}: {req_err}")
 
         return JsonResponse({'message': 'Scraping completed and data saved to the database'})
 
     except Exception as e:
         print(f"Error occurred: {e}")
         return JsonResponse({'error': str(e)})
+
+
+
 
 def DashboardPage(request):
     return render(request, 'dashboard.html')  
