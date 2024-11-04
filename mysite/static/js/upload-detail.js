@@ -1,40 +1,37 @@
 document.addEventListener('DOMContentLoaded', function () {
     const manuscriptForm = document.getElementById('manuscriptForm');
   
-    // Fungsi untuk menyimpan data form ke sessionStorage tanpa kategori
+    // Save form data to sessionStorage
     function saveFormData() {
         const formData = {
             title: document.getElementById('journal-title').value,
-            publishDate: document.getElementById('publish-date').value,
             abstract: document.getElementById('abstract').value,
             terms: document.getElementById('terms').checked
         };
         sessionStorage.setItem('formData', JSON.stringify(formData));
     }
   
-    // Fungsi untuk memuat data form dari sessionStorage tanpa kategori
+    // Load form data from sessionStorage
     function loadFormData() {
         const savedFormData = JSON.parse(sessionStorage.getItem('formData'));
         if (savedFormData) {
             document.getElementById('journal-title').value = savedFormData.title || '';
-            document.getElementById('publish-date').value = savedFormData.publishDate || '';
             document.getElementById('abstract').value = savedFormData.abstract || '';
             document.getElementById('terms').checked = savedFormData.terms || false;
         }
     }
   
-    // Memuat data form saat halaman "Upload Detail" dimuat
+    // Load data on page load
     if (manuscriptForm) {
         loadFormData();
   
-        // Menyimpan data setiap kali input berubah
+        // Save data when input changes
         manuscriptForm.addEventListener('input', saveFormData);
   
         manuscriptForm.addEventListener('submit', function (event) {
             event.preventDefault();
-            saveFormData(); // Pastikan data terakhir tersimpan
-            window.location.href = '/confirmation/'; // Ganti dengan URL halaman konfirmasi Anda
+            saveFormData(); // Ensure last data is saved
+            window.location.href = '/confirmation/';
         });
     }
-  });
-  
+});
