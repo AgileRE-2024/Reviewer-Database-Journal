@@ -1,6 +1,5 @@
-from django.db import models
-
 # models.py
+from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
 
@@ -11,7 +10,6 @@ class Reviewer(models.Model):
         return self.name
 
     def paper_links(self):
-        # Membuat link untuk setiap judul paper
         links = [
             format_html(
                 '<a href="{}">{}</a>',
@@ -23,14 +21,25 @@ class Reviewer(models.Model):
 
     paper_links.short_description = "Paper Titles"  # Nama kolom di halaman admin
 
+
+class DetailReviewer(models.Model):
+    reviewer = models.OneToOneField(Reviewer, on_delete=models.CASCADE, related_name='detail')
+    country = models.CharField(max_length=255, default='NULL')
+    email = models.EmailField(max_length=255, default='NULL')
+    orcid = models.CharField(max_length=255, default='NULL')
+    username = models.CharField(max_length=255, default='NULL')
+
+    def __str__(self):
+        return f"Detail of {self.reviewer.name}"
+
+
 class ScrapedPaper(models.Model):
     title = models.CharField(max_length=500)
     url = models.URLField()
-    first_author = models.CharField(max_length=255)
+    authors = models.TextField(null=True)  # Mengubah kolom first_author menjadi authors
     abstract = models.TextField(blank=True, null=True)
+    publisher = models.CharField(max_length=255, blank=True, null=True)  # Kolom baru untuk publisher
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE, related_name='papers')
     
     def __str__(self):
-        return f"{self.title} by {self.first_author}"
-
-
+        return f"{self.title} by {self.authors}"

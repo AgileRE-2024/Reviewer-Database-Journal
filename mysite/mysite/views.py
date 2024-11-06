@@ -2,20 +2,24 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import pandas as pd
 import requests
-from myapp.models import ScrapedPaper, Reviewer
+from myapp.models import ScrapedPaper, Reviewer, DetailReviewer
 
 def scrape_reviewers(request):
     file_path = "C:\\Users\\Kevin\\Downloads\\USERS JISEBI.xlsx"
     try:
-        # Membaca kolom givenname dan affiliation dari file Excel
+        # Membaca kolom givenname, affiliation, country, email, orcid, dan username dari file Excel
         df = pd.read_excel(file_path)
-        reviewer_data = df[['givenname.Element:Text', 'affiliation.Element:Text']].dropna()
+        reviewer_data = df[['givenname.Element:Text', 'affiliation.Element:Text', 'country', 'email', 'orcid', 'username']].fillna('NULL')
 
         headers = {'User-Agent': 'Postman'}
 
         for _, row in reviewer_data.iterrows():
             name = row['givenname.Element:Text']
             affiliation = row['affiliation.Element:Text']
+            country = row['country']
+            email = row['email']
+            orcid = row['orcid']
+            username = row['username']
 
             try:
                 # Mengirim request ke CrossRef API dengan timeout 10 detik
@@ -31,32 +35,45 @@ def scrape_reviewers(request):
 
                     # Membuat atau mengambil reviewer
                     reviewer, _ = Reviewer.objects.get_or_create(name=name)
+                    
+                    # Menambahkan atau memperbarui DetailReviewer
+                    DetailReviewer.objects.update_or_create(
+                        reviewer=reviewer,
+                        defaults={
+                            'country': country,
+                            'email': email,
+                            'orcid': orcid,
+                            'username': username
+                        }
+                    )
 
                     for item in items:
                         title = item.get('title', ['No Title'])[0]
                         url = item.get('URL', 'No URL')
                         authors = item.get('author', [])
-                        abstract = item.get('abstract', 'No Abstract')
+                        publisher = item.get('publisher', 'No Publisher')
 
-                        # Mengambil nama penulis pertama jika ada
-                        first_author = ""
-                        if authors:
-                            first_author_data = authors[0]
-                            first_author = f"{first_author_data.get('given', '')} {first_author_data.get('family', '')}".strip()
+                        # Menyimpan semua penulis dalam format string
+                        authors_list = [f"{author.get('given', '')} {author.get('family', '')}".strip() for author in authors]
+                        authors_str = ", ".join(authors_list)
+
+                        abstract = item.get('abstract', 'No Abstract')
 
                         # Cek apakah entri sudah ada berdasarkan judul atau URL
                         paper, created = ScrapedPaper.objects.get_or_create(
                             title=title,
                             url=url,
-                            first_author=first_author,
+                            authors=authors_str,  # Menggunakan authors_str
                             abstract=abstract,
+                            publisher=publisher,  # Menambahkan publisher
                             reviewer=reviewer
                         )
 
                         if created:
                             print(f"Title: {title}")
                             print(f"URL: {url}")
-                            print(f"First Author: {first_author}")
+                            print(f"Authors: {authors_str}")
+                            print(f"Publisher: {publisher}")
 
                 else:
                     print(f"Failed to fetch data for {name} (status code: {response.status_code})")
@@ -69,9 +86,6 @@ def scrape_reviewers(request):
     except Exception as e:
         print(f"Error occurred: {e}")
         return JsonResponse({'error': str(e)})
-
-
-
 
 def DashboardPage(request):
     return render(request, 'dashboard.html')  
