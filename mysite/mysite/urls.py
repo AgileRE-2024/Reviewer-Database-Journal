@@ -28,7 +28,9 @@ from .views import ReviewerPage
 from .views import UploadOJSPage
 from .views import ContactPage
 from .views import scrape_reviewers
+from .views import RecommendationPage
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,5 +46,8 @@ urlpatterns = [
     path('upload/ojs/', UploadOJSPage, name='upload_ojs'),
     path('contact/', ContactPage, name='contact'),
     path('scrape-reviewers/', scrape_reviewers, name='scrape_reviewers'),
+    path('recommend-reviewers/', views.recommend_reviewers, name='recommend_reviewers'),
+    path('recommendation/', RecommendationPage, name='recommendation'),
+     path('get-reviewer-details/', views.get_reviewer_details, name='get_reviewer_details'),
 ]
 
