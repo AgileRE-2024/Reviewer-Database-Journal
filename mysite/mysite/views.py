@@ -104,21 +104,25 @@ def get_reviewer_details(request):
 
 
 def scrape_reviewers(request):
-    file_path = "C:\\Users\\Kevin\\Downloads\\USERS JISEBI.xlsx"
+    file_path = "C:\\Users\\Kevin\\Downloads\\DataOJS.xlsx"  # Path baru yang diberikan
     try:
-        # Membaca kolom givenname, affiliation, country, email, orcid, dan username dari file Excel
+        # Membaca kolom givenname, familyname, dan affiliation dari file Excel
         df = pd.read_excel(file_path)
-        reviewer_data = df[['givenname.Element:Text', 'affiliation.Element:Text', 'country', 'email', 'orcid', 'username']].fillna('NULL')
+        reviewer_data = df[['givenname', 'familyname', 'affiliation.Element:Text', 'country', 'email', 'orcid', 'username']].fillna('NULL')
 
         headers = {'User-Agent': 'Postman'}
 
         for _, row in reviewer_data.iterrows():
-            name = row['givenname.Element:Text']
+            givenname = row['givenname']
+            familyname = row['familyname']
             affiliation = row['affiliation.Element:Text']
             country = row['country']
             email = row['email']
             orcid = row['orcid']
             username = row['username']
+
+            # Kombinasikan givenname dan familyname untuk query
+            name = f"{givenname} {familyname}"
 
             try:
                 # Mengirim request ke CrossRef API dengan timeout 10 detik
