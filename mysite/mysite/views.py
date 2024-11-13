@@ -21,7 +21,7 @@ def recommend_reviewers(request):
         # Ambil semua paper dari database untuk dibandingkan
         papers = ScrapedPaper.objects.all()
         paper_texts = [f"{paper.title} {paper.abstract}" for paper in papers]
-        
+
         # Tambahkan input user ke daftar teks untuk dihitung similiaritasnya
         paper_texts.insert(0, user_input)
 
@@ -30,10 +30,11 @@ def recommend_reviewers(request):
         tfidf_matrix = vectorizer.fit_transform(paper_texts)
         cosine_similarities = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix).flatten()
 
-        # Mengambil semua hasil kemiripan (skip indeks 0 karena itu input user)
+        # Mengambil semua hasil kemiripan dengan filter nilai similarity > 10%
         similar_papers = [
             (papers[i-1], cosine_similarities[i] * 100)  # i-1 karena indeks 0 adalah input user, konversi ke persentase
             for i in range(1, len(cosine_similarities))
+            if cosine_similarities[i] * 100 > 10  # Filter nilai similarity > 10%
         ]
 
         # Mengelompokkan reviewer dan menyimpan nilai similarity tertinggi
@@ -52,7 +53,7 @@ def recommend_reviewers(request):
                 # Perbarui nilai similarity tertinggi jika ditemukan skor lebih tinggi
                 reviewer_dict[reviewer.name]['highest_score'] = max(reviewer_dict[reviewer.name]['highest_score'], score)
 
-            # Tambahkan paper ke daftar, urutan akan diatur nanti
+            # Tambahkan paper ke daftar
             reviewer_dict[reviewer.name]['count'] += 1  # Tambahkan ke penghitung
             reviewer_dict[reviewer.name]['papers'].append({
                 'title': paper.title,

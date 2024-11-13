@@ -12,7 +12,7 @@
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
-                <img src="{% static 'img/logo.png' %}" alt="Journal Logo"> <!-- Ubah sesuai path logo -->
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
             </div>
             <nav>
                 <ul>
@@ -35,23 +35,22 @@
                     <span class="badge">6</span>
                 </div>
                 <div class="language-selector">
-                    <img src="{% static 'img/UK Flag.png' %}" alt="English"> <!-- Ubah sesuai path -->
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
                     <span>English</span>
                 </div>
                 <div class="user-profile">
-                    <img src="{% static 'img/orang.png' %}" alt="User"> <!-- Ubah sesuai path -->
+                    <img src="{% static 'img/orang.png' %}" alt="User">
                     <span>Udin</span>
                 </div>
             </header>
             
-            <!-- Konten halaman Recommended Reviewers -->
             <h1>Recommended Reviewers</h1>
             <table>
                 <thead>
                     <tr>
                         <th>No.</th>
                         <th>Reviewer Name</th>
-                        <th>Number of Scraped Papers</th>
+                        <th>Number of Scraped Papers Related</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -71,81 +70,74 @@
         </main>
     </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          const data = JSON.parse(sessionStorage.getItem('recommendations') || '[]');
-          const tableBody = document.getElementById('reviewers-table-body');
-          const modal = document.getElementById('modal');
-          const modalBody = document.getElementById('modal-body');
-          const closeModalBtn = document.getElementById('close-modal');
-  
-          if (data.length > 0) {
-              data.forEach((reviewer, index) => {
-                  // Membuat baris tabel untuk setiap reviewer
-                  const row = document.createElement('tr');
-                  row.innerHTML = `
-                      <td>${index + 1}</td>
-                      <td class="reviewer-name" data-name="${reviewer.name}" style="cursor: pointer; color: blue; text-decoration: underline;">
-                          ${reviewer.name}
-                      </td>
-                      <td>${reviewer.count}</td> <!-- Pastikan penggunaan data count benar -->
-                      <td><button class="details-btn" data-index="${index}">Lihat Detail</button></td>
-                  `;
-                  tableBody.appendChild(row);
-              });
-  
-              // Event listener untuk tombol "Lihat Detail"
-              document.querySelectorAll('.details-btn').forEach(button => {
-                  button.addEventListener('click', function() {
-                      const index = this.getAttribute('data-index');
-                      const papers = data[index].papers;
-  
-                      // Isi konten modal untuk menampilkan judul-judul paper sebagai tautan
-                      modalBody.innerHTML = papers.length > 0 ? papers.map(paper => `
-                          <h3><a href="${paper.url}" target="_blank" style="color: blue; text-decoration: underline;">${paper.title}</a></h3>
-                          <p>Similarity Score: ${paper.similarity_score}%</p>
-                      `).join('') : '<p>No papers available for this reviewer.</p>';
-                      modal.style.display = 'block';
-                  });
-              });
-  
-              // Event listener untuk nama reviewer (menampilkan detail reviewer dari server)
-              document.querySelectorAll('.reviewer-name').forEach(nameElement => {
-                  nameElement.addEventListener('click', function() {
-                      const reviewerName = this.getAttribute('data-name');
-  
-                      // Fetch detail dari server
-                      fetch(`/get-reviewer-details/?name=${encodeURIComponent(reviewerName)}`)
-                          .then(response => response.json())
-                          .then(detail => {
-                              // Isi konten modal dengan detail reviewer
-                              modalBody.innerHTML = `
-                                  <h3>${detail.name}</h3>
-                                  <p><strong>Email:</strong> ${detail.email}</p>
-                                  <p><strong>Country:</strong> ${detail.country}</p>
-                                  <p><strong>ORCID:</strong> ${detail.orcid}</p>
-                                  <p><strong>Username:</strong> ${detail.username}</p>
-                              `;
-                              modal.style.display = 'block';
-                          })
-                          .catch(error => console.error('Error:', error));
-                  });
-              });
-  
-              // Close modal
-              closeModalBtn.addEventListener('click', function() {
-                  modal.style.display = 'none';
-              });
-  
-              // Close modal when clicking outside the modal content
-              window.addEventListener('click', function(event) {
-                  if (event.target === modal) {
-                      modal.style.display = 'none';
-                  }
-              });
-          } else {
-              tableBody.innerHTML = '<tr><td colspan="4">No recommended reviewers found.</td></tr>';
-          }
-      });
-  </script>  
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = JSON.parse(sessionStorage.getItem('recommendations') || '[]');
+            const tableBody = document.getElementById('reviewers-table-body');
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            if (data.length > 0) {
+                data.forEach((reviewer, index) => {
+                    // Filter hanya untuk paper dengan similarity score > 10%
+                    const filteredPapers = reviewer.papers.filter(paper => paper.similarity_score > 10);
+
+                    // Hanya menambahkan row jika ada paper yang memenuhi syarat
+                    if (filteredPapers.length > 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td class="reviewer-name" data-name="${reviewer.name}" style="cursor: pointer; color: blue; text-decoration: underline;">
+                                ${reviewer.name}
+                            </td>
+                            <td>${reviewer.count}</td>
+                            <td><button class="details-btn" data-index="${index}">Lihat Detail</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                });
+
+                // Event listener untuk tombol "Lihat Detail"
+                document.querySelectorAll('.details-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        const papers = data[index].papers.filter(paper => paper.similarity_score > 10);
+
+                        modalBody.innerHTML = papers.length > 0 ? papers.map(paper => `
+                            <h3><a href="${paper.url}" target="_blank" style="color: blue; text-decoration: underline;">${paper.title}</a></h3>
+                            <p>Similarity Score: ${paper.similarity_score}%</p>
+                        `).join('') : '<p>No papers available for this reviewer.</p>';
+                        modal.style.display = 'block';
+                    });
+                });
+
+                document.querySelectorAll('.reviewer-name').forEach(nameElement => {
+                    nameElement.addEventListener('click', function() {
+                        const reviewerName = this.getAttribute('data-name');
+
+                        fetch(`/get-reviewer-details/?name=${encodeURIComponent(reviewerName)}`)
+                            .then(response => response.json())
+                            .then(detail => {
+                                modalBody.innerHTML = `
+                                    <h3>${detail.name}</h3>
+                                    <p><strong>Email:</strong> ${detail.email}</p>
+                                    <p><strong>Country:</strong> ${detail.country}</p>
+                                    <p><strong>ORCID:</strong> ${detail.orcid}</p>
+                                    <p><strong>Username:</strong> ${detail.username}</p>
+                                `;
+                                modal.style.display = 'block';
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+                });
+
+                closeModalBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            } else {
+                tableBody.innerHTML = '<tr><td colspan="4">No recommended reviewers found.</td></tr>';
+            }
+        });
+    </script>
 </body>
 </html>
