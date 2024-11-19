@@ -181,3 +181,52 @@ th, td {
     background-color: #e3f2fd;
     color: #2196f3;
   }
+
+  .stat-cards-container {
+    display: flex; /* Flexbox untuk membuat elemen sejajar */
+    flex-direction: row; /* Atur arah horizontal */
+    justify-content: space-between; /* Spasi antara kartu */
+    align-items: center; /* Rata tengah secara vertikal */
+    gap: 20px; /* Jarak antar kartu */
+    margin: 20px auto; 
+    padding: 10px;
+    max-width: 800px;
+}
+
+.stat-card {
+    width: 400px;
+    height: 300px;
+    background: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card-icon img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.stat-card-info h4 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.stat-card-info p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin: 5px 0 0;
+}

@@ -43,6 +43,28 @@
                     <span>Udin</span>
                 </div>
             </header>
+            <div class="stat-cards-container">
+                <div class="stat-card">
+                    <div class="stat-card-icon">
+                        <img src="{% static 'img/Bitmap.png' %}" alt="Total Papers">
+                    </div>
+                    <div class="stat-card-info">
+                        <h4>Total Paper Scraped</h4>
+                        <p class="stat-number" id="total-papers">0</p>
+                    </div>
+                </div>
+            
+                <div class="stat-card">
+                    <div class="stat-card-icon">
+                        <img src="{% static 'img/Bitmap.png' %}" alt="Total Reviewers">
+                    </div>
+                    <div class="stat-card-info">
+                        <h4>Total Reviewers</h4>
+                        <p class="stat-number" id="total-reviewers">0</p>
+                    </div>
+                </div>
+            </div>                    
+                             
             <div class="paper-cards">
                 <div class="paper-card">
                     <div class="paper-icon"></div>
@@ -109,5 +131,24 @@
             </div>
         </main>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const updateStatistics = () => {
+                fetch("{% url 'get_statistics' %}")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("total-papers").textContent = data.total_papers;
+                        document.getElementById("total-reviewers").textContent = data.total_reviewers;
+                    })
+                    .catch(error => console.error("Error fetching statistics:", error));
+            };
+    
+            // Update statistics every 10 seconds
+            setInterval(updateStatistics, 10000);
+    
+            // Initial fetch
+            updateStatistics();
+        });
+    </script>    
 </body>
 </html>
