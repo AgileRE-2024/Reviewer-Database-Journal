@@ -16,12 +16,12 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="#" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
-                    <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
-                    <li><a href="#"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'upload' %}" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
                 </ul>
             </nav>
             <div class="logout">
@@ -43,28 +43,34 @@
                     <span>Udin</span>
                 </div>
             </header>
-            
-            <h1>Recommended Reviewers</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Reviewer Name</th>
-                        <th>Number of Scraped Papers Related</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="reviewers-table-body">
-                    <!-- Data akan diisi oleh JavaScript -->
-                </tbody>
-            </table>
-            <a href="/upload/detail/" class="button">Go Back to Upload</a>
+            <div class="content">
+                <div class="progress-bar">
+                    <div class="step">Start</div>
+                    <div class="step">Upload Manuscript</div>
+                    <div class="step active">Recommended Reviewers</div>
+                </div>
+                <h1>Recommended Reviewers</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Reviewer Name</th>
+                            <th>Number of Scraped Papers Related</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviewers-table-body">
+                        <!-- Data akan diisi oleh JavaScript -->
+                    </tbody>
+                </table>
+                <a href="/upload/detail/" class="button">Go Back to Upload</a>
 
-            <!-- Modal untuk detail reviewer -->
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span id="close-modal" class="close-modal">&times;</span>
-                    <div id="modal-body"></div>
+                <!-- Modal untuk detail reviewer -->
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span id="close-modal" class="close-modal">&times;</span>
+                        <div id="modal-body"></div>
+                    </div>
                 </div>
             </div>
         </main>

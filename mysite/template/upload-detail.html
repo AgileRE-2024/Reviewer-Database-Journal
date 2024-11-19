@@ -17,12 +17,12 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="#" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
-                    <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="#"><i class="fas fa-address-book"></i> Contact</a></li>
-                    <li><a href="#"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'upload' %}" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
+                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
+                    <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
                 </ul>
             </nav>
             <div class="logout">
@@ -49,7 +49,6 @@
                 <div class="progress-bar">
                     <div class="step">Start</div>
                     <div class="step active">Upload Manuscript</div>
-                    <div class="step">Confirmation</div>
                     <div class="step">Recommended Reviewers</div>
                 </div>
                 <h1>Paper Manuscript Form</h1>
@@ -66,7 +65,7 @@
                         <input type="checkbox" id="terms" name="terms" required>
                         <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
                     </div>
-                    <button type="submit" class="submit-btn">Save & Continue</button>
+                    <button type="submit" class="submit-btn">Find My Reviewers</button>
                 </form>
             </div>
         </main>

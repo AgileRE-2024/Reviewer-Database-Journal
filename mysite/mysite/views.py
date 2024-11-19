@@ -185,27 +185,35 @@ def scrape_reviewers(request):
                         authors = item.get('author', [])
                         publisher = item.get('publisher', 'No Publisher')
 
-                        # Menyimpan semua penulis dalam format string
+                        # Membuat daftar nama author dalam format string
                         authors_list = [f"{author.get('given', '')} {author.get('family', '')}".strip() for author in authors]
                         authors_str = ", ".join(authors_list)
 
                         abstract = item.get('abstract', 'No Abstract')
 
-                        # Cek apakah entri sudah ada berdasarkan judul atau URL
-                        paper, created = ScrapedPaper.objects.get_or_create(
-                            title=title,
-                            url=url,
-                            authors=authors_str,  # Menggunakan authors_str
-                            abstract=abstract,
-                            publisher=publisher,  # Menambahkan publisher
-                            reviewer=reviewer
+                        # Cek apakah salah satu author cocok dengan nama reviewer dari data OJS
+                        match_found = any(
+                            givenname.lower() in author.get('given', '').lower() and
+                            familyname.lower() in author.get('family', '').lower()
+                            for author in authors
                         )
 
-                        if created:
-                            print(f"Title: {title}")
-                            print(f"URL: {url}")
-                            print(f"Authors: {authors_str}")
-                            print(f"Publisher: {publisher}")
+                        if match_found:
+                            # Cek apakah entri sudah ada berdasarkan judul atau URL
+                            paper, created = ScrapedPaper.objects.get_or_create(
+                                title=title,
+                                url=url,
+                                authors=authors_str,  # Menggunakan authors_str
+                                abstract=abstract,
+                                publisher=publisher,  # Menambahkan publisher
+                                reviewer=reviewer
+                            )
+
+                            if created:
+                                print(f"Title: {title}")
+                                print(f"URL: {url}")
+                                print(f"Authors: {authors_str}")
+                                print(f"Publisher: {publisher}")
 
                 else:
                     print(f"Failed to fetch data for {name} (status code: {response.status_code})")
@@ -213,7 +221,7 @@ def scrape_reviewers(request):
             except requests.exceptions.RequestException as req_err:
                 print(f"Request error for {name}: {req_err}")
 
-        return JsonResponse({'message': 'Scraping completed and data saved to the database'})
+        return JsonResponse({'message': 'Scraping completed and data saved to the database if match found'})
 
     except Exception as e:
         return JsonResponse({'error': str(e)})

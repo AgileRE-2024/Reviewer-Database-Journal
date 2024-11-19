@@ -178,3 +178,7 @@ header {
   display: block !important;
   visibility: visible !important;
 }
+
+.format-excel {
+  color: red;
+}

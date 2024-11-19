@@ -46,10 +46,24 @@
             <div id="reviewer-scraping-page" class="page">
                 <div class="reviewer-scraping">
                     <h2>Reviewer Scraping</h2>
-                    <p>Last Scraped: <span id="last-scraped-date">07/10/23</span></p>
-                    <button id="go-btn" class="go-btn">Go</button>
+                    <p>Upload your OJS file to start scraping reviewers</p>
+                    <p>Please Convert Your Column Name Into This Format :</p>
+                    <p class="format-excel">1. First Name : givenname</p>
+                    <p class="format-excel">2. Last Name : familyname</p>
+                    <p class="format-excel">3. Affiliation : affiliation.Element:Text</p>
+                    <p class="format-excel">3. Country : country</p>
+                    <p class="format-excel">4. Email : email</p>
+                    <p class="format-excel">5. Orcid : orcid</p>
+                    <p class="format-excel">6. Username : username</p>
+                    <form id="upload-form" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <label for="ojs-file">Upload OJS File:</label>
+                        <input type="file" id="ojs-file" name="ojs_file" accept=".xlsx" required>
+                        <button type="submit" id="upload-btn" class="upload-btn">Upload File</button>
+                    </form>
+                    <button id="go-btn" class="go-btn" disabled>Start Scraping</button>
                 </div>
-            </div>
+            </div>            
         </main>
     </div>
     <script src="{% static 'js/upload-ojs.js' %}"></script>
