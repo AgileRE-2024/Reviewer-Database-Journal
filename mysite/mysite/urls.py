@@ -45,9 +45,11 @@ urlpatterns = [
     path('reviewer/', ReviewerPage, name='reviewer'),
     path('upload/ojs/', UploadOJSPage, name='upload_ojs'),
     path('contact/', ContactPage, name='contact'),
-    path('scrape-reviewers/', scrape_reviewers, name='scrape_reviewers'),
     path('recommend-reviewers/', views.recommend_reviewers, name='recommend_reviewers'),
     path('recommendation/', RecommendationPage, name='recommendation'),
-     path('get-reviewer-details/', views.get_reviewer_details, name='get_reviewer_details'),
+    path('get-reviewer-details/', views.get_reviewer_details, name='get_reviewer_details'),
+    path('upload-ojs-file/', views.upload_ojs_file, name='upload_ojs_file'),
+    path('scrape-reviewers/', views.scrape_reviewers, name='scrape_reviewers'),
+    path('api/statistics/', views.get_statistics, name='get_statistics'),
 ]
 

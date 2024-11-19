@@ -6,7 +6,18 @@ from myapp.models import ScrapedPaper, Reviewer, DetailReviewer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import os
+
+def get_statistics(request):
+    total_papers = ScrapedPaper.objects.count()
+    total_reviewers = Reviewer.objects.count()
+    return JsonResponse({
+        'total_papers': total_papers,
+        'total_reviewers': total_reviewers,
+    })
 
 @csrf_exempt
 def recommend_reviewers(request):
@@ -100,16 +111,33 @@ def get_reviewer_details(request):
             'username': detail.username,
         }
         return JsonResponse(detail_data)
-
-
-
+    
+def upload_ojs_file(request):
+    if request.method == 'POST' and request.FILES.get('ojs_file'):
+        ojs_file = request.FILES['ojs_file']
+        file_path = default_storage.save(f"uploads/{ojs_file.name}", ContentFile(ojs_file.read()))
+        request.session['ojs_file_path'] = file_path  # Simpan path file di sesi untuk digunakan nanti
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
 
 def scrape_reviewers(request):
-    file_path = "C:\\Users\\Kevin\\Downloads\\DataOJS.xlsx"  # Path baru yang diberikan
+    file_path = request.session.get('ojs_file_path')
+    if not file_path:
+        return JsonResponse({'error': 'No file uploaded'})
+
     try:
-        # Membaca kolom givenname, familyname, dan affiliation dari file Excel
-        df = pd.read_excel(file_path)
-        reviewer_data = df[['givenname', 'familyname', 'affiliation.Element:Text', 'country', 'email', 'orcid', 'username']].fillna('NULL')
+        # Baca file Excel dari path yang disimpan di sesi
+        df = pd.read_excel(default_storage.open(file_path))
+        # Daftar kolom yang diharapkan
+        required_columns = ['givenname', 'familyname', 'affiliation.Element:Text', 'country', 'email', 'orcid', 'username']
+
+        # Cek apakah kolom yang diharapkan ada di file Excel
+        missing_columns = [col for col in required_columns if col not in df.columns]
+        if missing_columns:
+            return JsonResponse({'error': f"Kolom pada Excel tidak sesuai dengan format. Kolom yang hilang: {', '.join(missing_columns)}"})
+
+        # Jika semua kolom ada, lanjutkan proses scraping
+        reviewer_data = df[required_columns].fillna('NULL')
 
         headers = {'User-Agent': 'Postman'}
 
@@ -188,7 +216,6 @@ def scrape_reviewers(request):
         return JsonResponse({'message': 'Scraping completed and data saved to the database'})
 
     except Exception as e:
-        print(f"Error occurred: {e}")
         return JsonResponse({'error': str(e)})
 
 def DashboardPage(request):
