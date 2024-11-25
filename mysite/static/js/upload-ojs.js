@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const uploadForm = document.getElementById('upload-form');
     const goBtn = document.getElementById('go-btn');
-    let fileUploaded = false;
+    const stopBtn = document.getElementById('stop-btn');
+    const stats = document.getElementById('scraping-stats');
+    let scrapingInProgress = false;
 
     uploadForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -16,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 alert('File uploaded successfully!');
                 goBtn.disabled = false;
-                fileUploaded = true;
             } else {
                 alert('File upload failed!');
             }
@@ -27,29 +28,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     goBtn.addEventListener('click', function() {
-        if (fileUploaded) {
-            alert('Starting reviewer scraping process...');
+        if (!scrapingInProgress) {
+            alert('Scraping started!');
+            scrapingInProgress = true;
+            stopBtn.disabled = false;
 
-            fetch('/scrape-reviewers/', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);  // Menampilkan pesan kesalahan jika ada masalah dengan kolom
-                } else {
-                    alert('Scraping process completed!');
-                    console.log(data);
-                }
-            })
-            .catch(error => {
-                console.error('Error during scraping:', error);
-            });
-        } else {
-            alert('Please upload a file first.');
+            fetch('/scrape-reviewers/', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Scraping completed or stopped!');
+                    stats.textContent = `Added Reviewers: ${data.added_reviewers}, Added Papers: ${data.added_papers}`;
+                })
+                .catch(error => console.error('Error during scraping:', error))
+                .finally(() => {
+                    scrapingInProgress = false;
+                    stopBtn.disabled = true;
+                });
+        }
+    });
+
+    stopBtn.addEventListener('click', function() {
+        if (scrapingInProgress) {
+            fetch('/stop-scraping/', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Scraping stopped!');
+                    stats.textContent = `Added Reviewers: ${data.added_reviewers}, Added Papers: ${data.added_papers}`;
+                })
+                .catch(error => console.error('Error stopping scraping:', error))
+                .finally(() => {
+                    scrapingInProgress = false;
+                    stopBtn.disabled = true;
+                });
         }
     });
 });

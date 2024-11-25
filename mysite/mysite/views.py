@@ -120,7 +120,34 @@ def upload_ojs_file(request):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 
+import threading
+
+# Variabel global untuk menghentikan scraping
+stop_scraping_flag = False
+
+@csrf_exempt
+def stop_scraping(request):
+    global stop_scraping_flag
+    stop_scraping_flag = True
+
+    # Hitung data tambahan selama proses scraping
+    initial_reviewers = request.session.get('initial_reviewers', 0)
+    initial_papers = request.session.get('initial_papers', 0)
+    current_reviewers = Reviewer.objects.count()
+    current_papers = ScrapedPaper.objects.count()
+
+    added_reviewers = current_reviewers - initial_reviewers
+    added_papers = current_papers - initial_papers
+
+    return JsonResponse({
+        'message': 'Scraping stopped',
+        'added_reviewers': added_reviewers,
+        'added_papers': added_papers,
+    })
+
 def scrape_reviewers(request):
+    global stop_scraping_flag
+    stop_scraping_flag = False
     file_path = request.session.get('ojs_file_path')
     if not file_path:
         return JsonResponse({'error': 'No file uploaded'})
@@ -141,7 +168,14 @@ def scrape_reviewers(request):
 
         headers = {'User-Agent': 'Postman'}
 
+        # Simpan jumlah awal ke session
+        request.session['initial_reviewers'] = Reviewer.objects.count()
+        request.session['initial_papers'] = ScrapedPaper.objects.count()
+
         for _, row in reviewer_data.iterrows():
+            if stop_scraping_flag:
+                break  # Hentikan proses jika flag aktif
+
             givenname = row['givenname']
             familyname = row['familyname']
             affiliation = row['affiliation.Element:Text']
@@ -221,7 +255,15 @@ def scrape_reviewers(request):
             except requests.exceptions.RequestException as req_err:
                 print(f"Request error for {name}: {req_err}")
 
-        return JsonResponse({'message': 'Scraping completed and data saved to the database if match found'})
+        added_reviewers = Reviewer.objects.count() - request.session['initial_reviewers']
+        added_papers = ScrapedPaper.objects.count() - request.session['initial_papers']
+        
+        return JsonResponse({
+            'message': 'Scraping completed',
+            'added_reviewers': added_reviewers,
+            'added_papers': added_papers,
+            'message': 'Scraping completed and data saved to the database if match found'
+        })
 
     except Exception as e:
         return JsonResponse({'error': str(e)})
