@@ -137,7 +137,7 @@ header {
   margin-top: 10px;
 }
 
-.upload-btn, .go-btn {
+.upload-btn, .go-btn, .stop-btn {
   background-color: #4F46E5;
   color: #fff;
   border: none;
@@ -147,7 +147,7 @@ header {
   margin-top: 20px;
 }
 
-.upload-btn:hover, .go-btn:hover, .upload-button:hover{
+.upload-btn:hover, .go-btn:hover, .upload-button:hover, .stop-btn:hover {
   background-color: #6359e9;
 }
 
@@ -170,7 +170,7 @@ header {
   margin-bottom: 20px;
 }
 
-.go-btn {
+.go-btn, .stop-btn {
   font-size: 16px;
 }
 
