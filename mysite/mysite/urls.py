@@ -52,5 +52,6 @@ urlpatterns = [
     path('upload-ojs-file/', views.upload_ojs_file, name='upload_ojs_file'),
     path('scrape-reviewers/', views.scrape_reviewers, name='scrape_reviewers'),
     path('api/statistics/', views.get_statistics, name='get_statistics'),
+    path('stop-scraping/', views.stop_scraping, name='stop_scraping'),
 ]
 
