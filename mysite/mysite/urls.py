@@ -37,8 +37,9 @@ urlpatterns = [
     path('dashboard/', DashboardPage, name='dashboard'),
     path('favorites/', FavoritePage, name='favorites'),
     path('history/', HistoryPage, name='history'),
-    path('', LoginPage, name='login'),
-    path('signup/', SignupPage, name='signup'),
+    path('', views.LoginPage, name='login'),
+    path('signup/', views.SignupPage, name='signup'),
+    path('logout/', views.logout_view, name='logout'),
     path('upload/', UploadPaperPage, name='upload'),
     path('upload/detail/', UploadDetailPage, name='upload_detail'),
     path('confirmation/', ConfirmationPage, name='confirmation'),
@@ -51,6 +52,5 @@ urlpatterns = [
     path('upload-ojs-file/', views.upload_ojs_file, name='upload_ojs_file'),
     path('scrape-reviewers/', views.scrape_reviewers, name='scrape_reviewers'),
     path('api/statistics/', views.get_statistics, name='get_statistics'),
-    path('stop-scraping/', views.stop_scraping, name='stop_scraping'),
 ]
 

@@ -11,6 +11,16 @@
     <div class="form-container">
         <h1>Create an Account</h1>
         <p>Create an account to continue</p>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {{ message.tags|default:'info' }}">
+                    {{ message }}
+                    <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             <label for="email">Email address:</label>
