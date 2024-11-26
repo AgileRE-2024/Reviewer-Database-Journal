@@ -164,4 +164,17 @@ h1 {
     font-size: 24px;
     cursor: pointer;
   }
+  .logout a {
+    background-color: #4c6fff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.logout a:hover {
+    background-color: #3352e6;
+}
   
