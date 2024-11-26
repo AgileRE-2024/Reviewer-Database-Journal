@@ -230,3 +230,17 @@ th, td {
     color: #007bff;
     margin: 5px 0 0;
 }
+
+.logout a {
+    background-color: #4c6fff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.logout a:hover {
+    background-color: #3352e6;
+}
