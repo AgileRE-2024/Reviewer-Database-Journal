@@ -14,6 +14,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 import os
 
+def all_reviewers(request):
+    reviewers = Reviewer.objects.prefetch_related('papers', 'detail').all()
+    return render(request, 'all_reviewers.html', {'reviewers': reviewers})
+
 def get_statistics(request):
     total_papers = ScrapedPaper.objects.count()
     total_reviewers = Reviewer.objects.count()
@@ -101,19 +105,19 @@ def recommend_reviewers(request):
 def get_reviewer_details(request):
     if request.method == 'GET':
         reviewer_name = request.GET.get('name')
-        # Ambil reviewer berdasarkan nama (pastikan unik)
         reviewer = get_object_or_404(Reviewer, name=reviewer_name)
-        detail = reviewer.detail  # OneToOneField relationship ke DetailReviewer
+        detail = reviewer.detail
 
-        # Format data untuk dikirimkan ke frontend
         detail_data = {
             'name': reviewer.name,
             'email': detail.email,
             'country': detail.country,
             'orcid': detail.orcid,
             'username': detail.username,
+            'affiliation': detail.affiliation,  # Tambahkan afiliasi
         }
         return JsonResponse(detail_data)
+
     
 def upload_ojs_file(request):
     if request.method == 'POST' and request.FILES.get('ojs_file'):
@@ -212,9 +216,11 @@ def scrape_reviewers(request):
                             'country': country,
                             'email': email,
                             'orcid': orcid,
-                            'username': username
+                            'username': username,
+                            'affiliation': affiliation  # Simpan afiliasi
                         }
                     )
+
 
                     for item in items:
                         title = item.get('title', ['No Title'])[0]

@@ -18,11 +18,8 @@
                 <ul>
                     <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                     <li><a href="{% url 'upload' %}" class="active upload-btn"><i class="fas fa-upload"></i> Upload Paper</a></li>
-                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
-                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
                     <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
-                    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
                 </ul>
             </nav>
             <div class="logout">
@@ -55,9 +52,9 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Reviewer Name</th>
+                            <th>Reviewer Name (Click Name To See Details)</th>
                             <th>Number of Scraped Papers Related</th>
-                            <th>Action</th>
+                            <th>Papers Related</th>
                         </tr>
                     </thead>
                     <tbody id="reviewers-table-body">
@@ -98,7 +95,7 @@
                                 ${reviewer.name}
                             </td>
                             <td>${reviewer.count}</td>
-                            <td><button class="details-btn" data-index="${index}">Lihat Detail</button></td>
+                            <td><button class="details-btn" data-index="${index}">View Paper</button></td>
                         `;
                         tableBody.appendChild(row);
                     }
@@ -129,6 +126,7 @@
                                     <h3>${detail.name}</h3>
                                     <p><strong>Email:</strong> ${detail.email}</p>
                                     <p><strong>Country:</strong> ${detail.country}</p>
+                                    <p><strong>Affiliation:</strong> ${detail.affiliation}</p>
                                     <p><strong>ORCID:</strong> ${detail.orcid}</p>
                                     <p><strong>Username:</strong> ${detail.username}</p>
                                 `;

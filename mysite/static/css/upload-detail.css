@@ -48,7 +48,7 @@ nav ul li a {
     align-items: center;
 }
 nav ul li a i {
-    margin-right: 10px; 
+    margin-right: 10px; /* Menambahkan jarak antara ikon dan teks */
 }
 
 nav ul li a.active {
@@ -84,6 +84,12 @@ header {
 
 .notifications, .language-selector, .user-profile {
     margin-left: 20px;
+    align-items: center;
+    display: flex;
+}
+
+.notifications img, .language-selector img, .user-profile img {
+    margin-right: 10px; /* Jarak antara avatar dan teks */
 }
 
 .badge {

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Reviewers</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Journal Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'upload' %}"><i class="fas fa-upload"></i> Upload Paper</a></li>
+                    <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main>
+            <header>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">6</span>
+                </div>
+                <div class="language-selector">
+                    <img src="{% static 'img/UK Flag.png' %}" alt="English">
+                    <span>English</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{% static 'img/orang.png' %}" alt="User">
+                    <span>{{ user.username }}</span>
+                </div>
+            </header>
+            <h1>All Reviewers</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Reviewer Name</th>
+                        <th>Affiliation</th>
+                        <th>Country</th>
+                        <th>Email</th>
+                        <th>ORCID</th>
+                        <th>Username</th>
+                        <th>Papers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reviewer in reviewers %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ reviewer.name }}</td>
+                            <td>{{ reviewer.detail.affiliation }}</td>
+                            <td>{{ reviewer.detail.country }}</td>
+                            <td>{{ reviewer.detail.email }}</td>
+                            <td>{{ reviewer.detail.orcid }}</td>
+                            <td>{{ reviewer.detail.username }}</td>
+                            <td>
+                                {% for paper in reviewer.papers.all %}
+                                    <a href="{{ paper.url }}" target="_blank">{{ paper.title }}</a><br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

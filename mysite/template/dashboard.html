@@ -18,13 +18,13 @@
                 <ul>
                     <li><a href="{% url 'dashboard' %}" class="active upload-btn"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                     <li><a href="{% url 'upload' %}"><i class="fas fa-upload"></i> Upload Paper</a></li>
-                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
-                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
                     <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
-                    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-address-book"></i> Contact</a></li>
                 </ul>
             </nav>
+            <div class="logout">
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
         </aside>
         <main>
             <header>
@@ -60,73 +60,11 @@
                         <h4>Total Reviewers</h4>
                         <p class="stat-number" id="total-reviewers">0</p>
                     </div>
-                </div>
-            </div>                    
-                             
-            <div class="paper-cards">
-                <div class="paper-card">
-                    <div class="paper-icon"></div>
-                    <div class="paper-title">Paper Title</div>
-                    <div class="paper-tag">#Technology</div>
-                    <button class="view-reviewers">View Reviewers</button>
-                </div>
-                <div class="paper-card">
-                    <div class="paper-icon"></div>
-                    <div class="paper-title">Paper Title</div>
-                    <div class="paper-tag">#Technology</div>
-                    <button class="view-reviewers">View Reviewers</button>
-                </div>
-                <div class="paper-card">
-                    <div class="paper-icon"></div>
-                    <div class="paper-title">Paper Title</div>
-                    <div class="paper-tag">#Technology</div>
-                    <button class="view-reviewers">View Reviewers</button>
-                </div>
+                </div>               
             </div>
-            <div class="review-table">
-                <h2>Paper Review Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Paper Title</th>
-                            <th>DATE</th>
-                            <th>TYPE</th>
-                            <th>STATUS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>00001</td>
-                            <td>Optimizing Cloud Computing Performance Using Load Balancing Algorithms</td>
-                            <td>04 Sep 2023</td>
-                            <td>Technology</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
-                        <tr>
-                            <td>00002</td>
-                            <td>Blockchain Technology for Secure Digital Identity Management</td>
-                            <td>28 May 2024</td>
-                            <td>Technology</td>
-                            <td><span class="status processing">Processing</span></td>
-                        </tr>
-                        <tr>
-                            <td>00003</td>
-                            <td>Machine Learning Applications in Predicting Student Performance in E-Learning Platforms</td>
-                            <td>23 Nov 2023</td>
-                            <td>Technology</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
-                        <tr>
-                            <td>00004</td>
-                            <td>The Role of Gamification in Enhancing Student Engagement in Higher Education</td>
-                            <td>05 Feb 2022</td>
-                            <td>Education</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="view-all-button">
+                <a href="{% url 'all_reviewers' %}" class="logout"><i class="fas fa-users"></i>  View All Reviewers</a>
+            </div>                     
         </main>
     </div>
     <script>

@@ -28,6 +28,7 @@ class DetailReviewer(models.Model):
     email = models.EmailField(max_length=255, default='NULL')
     orcid = models.CharField(max_length=255, default='NULL')
     username = models.CharField(max_length=255, default='NULL')
+    affiliation = models.TextField(blank=True, null=True)  # Tambahkan kolom afiliasi
 
     def __str__(self):
         return f"Detail of {self.reviewer.name}"

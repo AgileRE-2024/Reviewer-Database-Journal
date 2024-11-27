@@ -185,10 +185,11 @@ th, td {
   .stat-cards-container {
     display: flex; /* Flexbox untuk membuat elemen sejajar */
     flex-direction: row; /* Atur arah horizontal */
-    justify-content: space-between; /* Spasi antara kartu */
-    align-items: center; /* Rata tengah secara vertikal */
+    justify-content: center; /* Pusatkan kartu secara horizontal */
+    align-items: center; /* Pusatkan kartu secara vertikal */
     gap: 20px; /* Jarak antar kartu */
-    margin: 20px auto; 
+    height: 60vh; /* Tinggi container sama dengan viewport */
+    margin: 0 auto; /* Hilangkan margin tambahan */
     padding: 10px;
     max-width: 800px;
 }
@@ -231,6 +232,7 @@ th, td {
     margin: 5px 0 0;
 }
 
+
 .logout a {
     background-color: #4c6fff;
     color: white;
@@ -256,4 +258,54 @@ th, td {
 
 .logout a:hover {
     background-color: #3352e6;
+}
+
+.view-all-button {
+    display: flex;
+    justify-content: center;
+}
+
+.view-all-button .logout {
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.view-all-button .logout:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd; /* Border pada tabel */
+}
+
+th {
+    background-color: #4c6fff;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
 }

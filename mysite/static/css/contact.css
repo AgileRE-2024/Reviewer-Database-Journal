@@ -136,13 +136,15 @@ h1 {
 }
 
 .contact-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
+    width: 100px; /* Atur lebar gambar */
+    height: 100px; /* Atur tinggi gambar */
+    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+    object-fit: cover; /* Menjaga proporsi gambar */
+    margin-bottom: 10px; /* Memberikan jarak antara gambar dan teks */
 }
 
 .message-btn {
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 10px;
     border: none;
     background-color: var(--primary-color);
@@ -189,6 +191,7 @@ th, td {
     background-color: #e3f2fd;
     color: #2196f3;
 }
+
 .logout a {
     background-color: #4c6fff;
     color: white;
@@ -197,8 +200,8 @@ th, td {
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s ease;
-}
-
-.logout a:hover {
+  }
+  
+  .logout a:hover {
     background-color: #3352e6;
-}
+  }

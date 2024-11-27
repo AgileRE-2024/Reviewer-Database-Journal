@@ -16,13 +16,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="{% url 'dashboard' %}" ><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                     <li><a href="{% url 'upload' %}"><i class="fas fa-upload"></i> Upload Paper</a></li>
-                    <li><a href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favorites</a></li>
-                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="{% url 'contact' %}" class="active upload-btn"><i class="fas fa-address-book"></i> Contact</a></li>
                     <li><a href="{% url 'upload_ojs' %}"><i class="fas fa-cloud-upload-alt"></i> Upload Data OJS</a></li>
-                    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="{% url 'contact' %}" class="active upload-btn"><i class="fas fa-address-book"></i> Contact</a></li>
                 </ul>
             </nav>
             <div class="logout">
@@ -48,42 +45,46 @@
                 <h1>Contact</h1>
                 <div class="contact-grid">
                     <div class="contact-card">
-                        <img src="contact1.jpg" alt="Kevin Nathaneal">
+                        <img src="{% static 'img/kevin.jpg' %}" alt="Kevin Nathaneal">
                         <h3>Kevin Nathaneal</h3>
-                        <p>customerservice1@gmail.com</p>
-                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                        <p>kevinnathaneal882@gmail.com</p>
+                        <a href="mailto:kevinnathaneal882@gmail.com" class="message-btn">
+                            <i class="fas fa-envelope"></i> Message
+                        </a>
                     </div>
                     <div class="contact-card">
-                        <img src="contact2.jpg" alt="Dimas Respati">
+                        <img src="{% static 'img/dimas.jpg' %}" alt="Dimas Respati">
                         <h3>Dimas Respati</h3>
-                        <p>customerservice2@gmail.com</p>
-                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                        <p>respatihimawan@gmail.com</p>
+                        <a href="mailto:respatihimawan@gmail.com" class="message-btn">
+                            <i class="fas fa-envelope"></i> Message
+                        </a>
                     </div>
                     <div class="contact-card">
-                        <img src="contact3.jpg" alt="Nadia Risky">
+                        <img src="{% static 'img/nadia.jpg' %}" alt="Nadia Risky">
                         <h3>Nadia Risky</h3>
-                        <p>customerservice3@gmail.com</p>
-                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                        <p>nadiarisky1903@gmail.com</p>
+                        <a href="mailto:nadiarisky1903@gmail.com" class="message-btn">
+                            <i class="fas fa-envelope"></i> Message
+                        </a>
                     </div>
                     <div class="contact-card">
-                        <img src="contact4.jpg" alt="Rosie Glover">
+                        <img src="{% static 'img/bingar.jpg' %}" alt="Bingar Kenaya Puri">
                         <h3>Bingar Kenaya Puri</h3>
-                        <p>customerservice4@gmail.com</p>
-                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                        <p>bingarpuri@gmail.com</p>
+                        <a href="mailto:bingarpuri@gmail.com" class="message-btn">
+                            <i class="fas fa-envelope"></i> Message
+                        </a>
                     </div>
                     <div class="contact-card">
-                        <img src="contact5.jpg" alt="Patrick Greer">
+                        <img src="{% static 'img/dyto.jpg' %}" alt="Aldyto">
                         <h3>Aldyto</h3>
-                        <p>customerservice5@gmail.com</p>
-                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
+                        <p>aldyto.jetbus88@gmail.com</p>
+                        <a href="mailto:aldyto.jetbus88@gmail.com" class="message-btn">
+                            <i class="fas fa-envelope"></i> Message
+                        </a>
                     </div>
-                    <div class="contact-card">
-                        <img src="contact6.jpg" alt="Darrell Ortega">
-                        <h3>Afrijal Haykal</h3>
-                        <p>customerservice6@gmail.com</p>
-                        <button class="message-btn"><i class="fas fa-envelope"></i> Message</button>
-                    </div>
-                </div>
+                </div>                
             </section>
         </main>
     </div>

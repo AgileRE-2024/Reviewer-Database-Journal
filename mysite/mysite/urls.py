@@ -53,5 +53,6 @@ urlpatterns = [
     path('scrape-reviewers/', views.scrape_reviewers, name='scrape_reviewers'),
     path('api/statistics/', views.get_statistics, name='get_statistics'),
     path('stop-scraping/', views.stop_scraping, name='stop_scraping'),
+    path('all-reviewers/', views.all_reviewers, name='all_reviewers'),
 ]
 
