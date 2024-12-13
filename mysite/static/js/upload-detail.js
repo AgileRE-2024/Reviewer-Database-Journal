@@ -2,9 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const manuscriptForm = document.getElementById('manuscriptForm');
 
     manuscriptForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Mencegah reload halaman
+        // Periksa validasi form terlebih dahulu
+        if (!manuscriptForm.checkValidity()) {
+            // Jika ada field yang tidak valid, biarkan browser menampilkan pesan bawaan
+            return;
+        }
 
-        // Lakukan panggilan ke endpoint yang mengolah dan mencocokkan data
+        // Jika validasi lolos, cegah reload halaman dan kirim data
+        event.preventDefault();
+
         fetch('/recommend-reviewers/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
