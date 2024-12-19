@@ -22,10 +22,6 @@ Sebelum memulai instalasi, pastikan Anda sudah memiliki:
    ```bash
    git clone https://github.com/AgileRE-2024/Reviewer-Database-Journal.git
    ```
-3. Masuk ke direktori proyek:
-   ```bash
-   cd mysite
-   ```
 
 ### 2. Instal Dependensi
 
@@ -34,7 +30,14 @@ Jalankan perintah berikut untuk menginstal dependensi yang dibutuhkan aplikasi:
 pip install -r requirements.txt
 ```
 
-### 3. Migrasi Database
+### 3. Membuka Direktori Aplikasi
+
+1. Masuk ke direktori proyek:
+   ```bash
+   cd mysite
+   ```
+
+### 4. Migrasi Database
 
 1. Jalankan perintah migrasi untuk membuat tabel di database:
    ```bash
@@ -42,7 +45,7 @@ pip install -r requirements.txt
    python manage.py migrate
    ```
 
-### 4. Buat Superuser
+### 5. Buat Superuser
 
 Untuk mengakses halaman admin, buat superuser dengan perintah berikut:
 ```bash
@@ -50,7 +53,7 @@ python manage.py createsuperuser
 ```
 Ikuti instruksi untuk mengisi username, email, dan password.
 
-### 7. Jalankan Server Lokal
+### 6. Jalankan Server Lokal
 
 Jalankan server pengembangan Django dengan perintah berikut:
 ```bash
